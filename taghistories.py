@@ -2,10 +2,12 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import time
+import pandas as pd
 
 class Ship:
-    def __init__(self, url, pages_of_content=None, dt_list=None):
+    def __init__(self, url, canon_identifier, pages_of_content="Unloaded", dt_list="Unloaded"):
         self.url = url
+        self.canon_identifier = canon_identifier
         self.pages_of_content = pages_of_content
         self.dt_list = dt_list
         
@@ -14,7 +16,7 @@ class Ship:
         time.sleep(7)
         
         if FLAG_verbose == True:
-            print("current process: page number extraction... (1/2)")
+            print(f"current process: page number extraction for {self.canon_identifier}... (1/2)")
         else:
             pass
         
@@ -67,7 +69,8 @@ class Ship:
             
             current_page_number += 1
         
-        dt_list = dt_list_return
+        
+        dt_list = [pd.Timestamp(x) for x in dt_list_return]
         
         print("finished loading values")
         
