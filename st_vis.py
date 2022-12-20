@@ -24,12 +24,10 @@ st.line_chart(chart_data)
 
 
 import altair as alt
-from vega_datasets import data
 
-source = data.stocks()
 
 lines = (
-    alt.Chart(source)
+    alt.Chart(df)
     .mark_line()
     .encode(x="date", y="price", color="symbol")
 )
@@ -37,7 +35,7 @@ lines = (
 xrule = (
     alt.Chart()
     .mark_rule(color="cyan", strokeWidth=2)
-    .encode(x=alt.datum(alt.DateTime(year=2006, month="November")))
+    .encode(x=alt.datum(alt.DateTime(year=2020, month="November")))
 )
 
 yrule = (
