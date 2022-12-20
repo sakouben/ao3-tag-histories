@@ -13,9 +13,7 @@ options = st.multiselect(
     'Pick some tags',
     tags,
 )
-
-st.write('You selected:', options)
     
-chart_data = df["Venti/Xiao"]
+chart_data = df[options]
 
 st.line_chart(chart_data)
