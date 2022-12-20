@@ -34,7 +34,7 @@ except:
 
 try:
     k = df.index.get_loc(enddate)
-    df = df.iloc[[0, k]
+    df = df.iloc[[0, k]]
 except:
     continue
 
