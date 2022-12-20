@@ -14,33 +14,12 @@ options = st.multiselect(
     tags,
 )
     
-dfrm = df[options].rolling(7).mean()
+rolling_avg_days = st.number_input('Days to calculate rolling average')
+
+dfrm = df[options].rolling(rolling_avg_days).mean()
 dfrm = dfrm.fillna(value=0)
 
 chart_data = dfrm
 
 
 st.line_chart(chart_data)
-
-
-import altair as alt
-
-
-lines = (
-    alt.Chart(df)
-    .mark_line()
-    .encode(x="date", y="price", color="symbol")
-)
-
-xrule = (
-    alt.Chart()
-    .mark_rule(color="cyan", strokeWidth=2)
-    .encode(x=alt.datum(alt.DateTime(year=2020, month="November")))
-)
-
-yrule = (
-    alt.Chart().mark_rule(strokeDash=[12, 6], size=2).encode(y=alt.datum(350))
-)
-
-
-lines + yrule + xrule
