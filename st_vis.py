@@ -14,6 +14,10 @@ options = st.multiselect(
     tags,
 )
     
-chart_data = df[options]
+dfrm = df[options].rolling(7).mean()
+dfrm = dfrm.fillna(value=0)
+
+chart_data = dfrm
+
 
 st.line_chart(chart_data)
