@@ -16,7 +16,7 @@ options = st.multiselect(
     default="Kazuha/Xiao"
 )
     
-#rolling_avg_days = st.number_input('Days to calculate rolling average', min_value=1)
+rolling_avg_days = st.number_input('Days to calculate rolling average', min_value=1)
 
 #startdate = st.date_input(
 #    "x-axis start date",
