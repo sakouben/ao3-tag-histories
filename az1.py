@@ -56,3 +56,7 @@ class TagDB:
         df = self.read_DB()
         df = addcolumn(df, tag)
         df.to_csv(self.filename)
+        
+    def tags(self):
+        df = self.read_DB()
+        return df.columns.values.tolist()
