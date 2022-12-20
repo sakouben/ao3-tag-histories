@@ -4,7 +4,7 @@ import re
 import time
 import pandas as pd
 
-class Ship:
+class Tag:
     def __init__(self, url, canon_identifier, pages_of_content="Unloaded", dt_list="Unloaded"):
         self.url = url
         self.canon_identifier = canon_identifier
@@ -79,3 +79,22 @@ class Ship:
     def load_values(self):
         self.pages_of_content = self.ao3_extract_no_pages_of_content(self.url)
         self.dt_list = self.ao3_extract_dt_list(self.url)
+        
+def tagdf_init(startdate, enddate=today_strf_Ymd):
+    start = pd.Timestamp(startdate)
+    end = pd.Timestamp(enddate)
+    
+    days = pd.date_range(start=start, end=end)
+    super_df = pd.DataFrame(index=days)
+        
+    return super_df
+
+def addcolumn(df, Tag): #as Ship object;
+    df[Tag.canon_identifier] = 0 #creates empty column
+    
+    Tag.load_values()
+            
+    for timestamp in Tag.dt_list:
+        df.at[timestamp, Tag.canon_identifier] += 1
+        
+    return df
