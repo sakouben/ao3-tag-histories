@@ -6,6 +6,15 @@ import az1
 
 PrimaryDB = az1.TagDB("tag-histories.csv")
 df = PrimaryDB.read_DB()
+
+tags = df.tags()
+
+options = st.multiselect(
+    'Pick some tags',
+    tags,
+)
+
+st.write('You selected:', options)
     
 chart_data = df["Venti/Xiao"]
 
