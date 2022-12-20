@@ -14,9 +14,9 @@ options = st.multiselect(
     tags,
 )
     
-rolling_avg_days = st.number_input('Days to calculate rolling average')
+rolling_avg_days = st.number_input('Days to calculate rolling average', min_value=1)
 
-dfrm = df[options].rolling(rolling_avg_days).mean()
+dfrm = df[options].rolling(int(rolling_avg_days)).mean()
 dfrm = dfrm.fillna(value=0)
 
 chart_data = dfrm
