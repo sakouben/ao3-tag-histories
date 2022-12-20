@@ -12,7 +12,7 @@ data visualization
 ---
 
 ```
-print("Hello, world!")
-for i in range(10):
-    print(i)
+df = tagdf_init("01 Jan 2019")
+ExampleTag = Tag(ExampleTag_url, ExampleTag_canonical_label)
+df = addcolumn(df, ExampleTag)
 ```
