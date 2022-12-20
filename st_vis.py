@@ -2,10 +2,11 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 
-def load_data():
-    df = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
-    return df
+import az0
+
+PrimaryDB = az0.TagDB("tag-histories.csv")
+df = PrimaryDB.read_DB()
     
-chart_data = load_data()
+chart_data = df["Venti/Xiao"]
 
 st.line_chart(chart_data)
