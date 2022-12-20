@@ -7,7 +7,7 @@ import az1
 PrimaryDB = az1.TagDB("tag-histories.csv")
 df = PrimaryDB.read_DB()
 
-tags = df.tags()
+tags = PrimaryDB.tags()
 
 options = st.multiselect(
     'Pick some tags',
