@@ -30,13 +30,13 @@ try:
     k = df.index.get_loc(startdate)
     df = df.iloc[[k, len(df) - 1]]
 except:
-    continue
+    pass
 
 try:
     k = df.index.get_loc(enddate)
     df = df.iloc[[0, k]]
 except:
-    continue
+    pass
 
 dfrm = df[options].rolling(int(rolling_avg_days)).mean()
 dfrm = dfrm.fillna(value=0)
