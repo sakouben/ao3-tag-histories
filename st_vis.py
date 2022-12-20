@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import datetime
 
 import az1
 
@@ -23,7 +24,7 @@ startd = pd.Timestamp(startdate).strftime("%Y-%m-%d")
 
 enddate = st.date_input(
     "x-axis end date",
-    datetime.date(2019, 7, 6))
+    datetime.date(2023, 1, 1))
 endd = pd.Timestamp(enddate).strftime("%Y-%m-%d")
 
 try:
