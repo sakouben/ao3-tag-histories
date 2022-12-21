@@ -5,6 +5,29 @@ from datetime import datetime
 
 import az1
 
+def group_df(df, function="sum", time="month"):
+    df['date'] = df.index
+    df['month'] = pd.to_datetime(df['date']).dt.month
+    df['year'] = pd.to_datetime(df['date']).dt.year
+    df.groupby(['year', 'month'], as_index=False).sum()
+    df.index = pd.DatetimeIndex(zdf.index)
+    df = df.drop('month', axis=1)
+    df = df.drop('year', axis=1)
+    
+    if function == "sum":
+        if time == "month":
+            df = df.resample('M').sum()
+        elif time == "week":
+            df = df.resample('W').sum()
+    elif function == "mean":
+        if time == "month":
+            df = df.resample('M').mean()
+        elif time == "week":
+            df = df.resample('W').mean()
+    
+    
+    return df
+
 PrimaryDB = az1.TagDB("tag-histories.csv")
 df = PrimaryDB.read_DB()
 
@@ -45,5 +68,9 @@ chart_data = dfrm
 
 
 st.line_chart(chart_data)
+
+chart_data_2 = group_df(df)
+
+st.line_chart(chart_data_2)
 
 
