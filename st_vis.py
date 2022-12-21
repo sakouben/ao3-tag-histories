@@ -45,3 +45,5 @@ chart_data = df
 
 
 st.line_chart(chart_data)
+
+print(df)
