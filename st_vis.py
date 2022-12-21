@@ -43,8 +43,14 @@ options = st.multiselect(
     tags,
     default="Kazuha/Xiao"
 )
-    
-rolling_avg_days = st.number_input('Days to calculate rolling average', min_value=1)
+
+if summarization_type == "Rolling":
+    rolling_days = st.number_input('Days to calculate rolling function over', min_value=1)
+else:
+    absolute_type = st.radio(
+        "Choose timeframe to calculate absolute function over",
+        ("Weekly", "Monthly")
+    )
 
 startdate = st.date_input(
     "x-axis start date")
@@ -66,7 +72,7 @@ try:
 except:
     pass
 
-dfrm = df[options].rolling(int(rolling_avg_days)).mean()
+dfrm = df[options].rolling(int(rolling_days)).mean()
 dfrm = dfrm.fillna(value=0)
 
 chart_data = dfrm
