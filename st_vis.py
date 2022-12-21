@@ -10,7 +10,7 @@ def group_df(df, function="sum", time="month"):
     df['month'] = pd.to_datetime(df['date']).dt.month
     df['year'] = pd.to_datetime(df['date']).dt.year
     df.groupby(['year', 'month'], as_index=False).sum()
-    df.index = pd.DatetimeIndex(zdf.index)
+    df.index = pd.DatetimeIndex(df.index)
     df = df.drop('month', axis=1)
     df = df.drop('year', axis=1)
     
