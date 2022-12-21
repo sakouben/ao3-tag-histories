@@ -41,7 +41,7 @@ except:
 dfrm = df[options].rolling(int(rolling_avg_days)).mean()
 dfrm = dfrm.fillna(value=0)
 
-chart_data = PrimaryDB.read_DB()
+chart_data = dfrm
 
 
 st.line_chart(chart_data)
