@@ -38,10 +38,10 @@ try:
 except:
     pass
 
-dfrm = df[[options]].rolling(int(rolling_avg_days)).mean()
+dfrm = df[options].rolling(int(rolling_avg_days)).mean()
 dfrm = dfrm.fillna(value=0)
 
-chart_data = df
+chart_data = PrimaryDB.read_DB()
 
 
 st.line_chart(chart_data)
