@@ -104,7 +104,10 @@ else:
 ## END dataframe processing for final display
 ## BEGIN final chart display
 
-st.line_chart(chart_data)
+if len(options) > 0:
+    st.line_chart(chart_data)
+else:
+    st.text('Pick some tags!')
 
 ## END final chart display
 
