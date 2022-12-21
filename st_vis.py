@@ -11,21 +11,21 @@ def group_df(df, function="sum", time="month"):
     df['date'] = df.index
     df['month'] = pd.to_datetime(df['date']).dt.month
     df['year'] = pd.to_datetime(df['date']).dt.year
-    df.groupby(['year', 'month'], as_index=False, numeric_only=True).sum()
+    df.groupby(['year', 'month'], as_index=False).sum(numeric_only=True)
     df.index = pd.DatetimeIndex(df.index)
     df = df.drop('month', axis=1)
     df = df.drop('year', axis=1)
     
     if function == "sum":
         if time == "month":
-            df = df.resample('M').sum()
+            df = df.resample('M').sum(numeric_only=True)
         elif time == "week":
-            df = df.resample('W').sum()
+            df = df.resample('W').sum(numeric_only=True)
     elif function == "mean":
         if time == "month":
-            df = df.resample('M').mean()
+            df = df.resample('M').mean(numeric_only=True)
         elif time == "week":
-            df = df.resample('W').mean()
+            df = df.resample('W').mean(numeric_only=True)
     
     
     return df
