@@ -71,7 +71,7 @@ except:
 summarization_type = st.radio(
     "Choose data summarization type",
     ('Rolling', 'Absolute'),
-    key="horizontal"
+    horizontal=True
 )
 
 ## END data summarization type widget
@@ -83,7 +83,7 @@ else:
     absolute_type = st.radio(
         "Choose timeframe and function for absolute display",
         ("Weekly Average", "Monthly Average", "Weekly Sum", "Monthly Sum"),
-        key="horizontal"
+        horizontal=True
     )
     
 ## END data summarization type-specific widget
