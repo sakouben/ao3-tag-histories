@@ -5,6 +5,8 @@ from datetime import datetime
 
 import az1
 
+today_strf_Ymd = pd.Timestamp(datetime.today().strftime('%Y-%m-%d'))
+
 def group_df(df, function="sum", time="month"):
     df['date'] = df.index
     df['month'] = pd.to_datetime(df['date']).dt.month
@@ -58,6 +60,9 @@ try:
     df = df.iloc[[*range(k, len(df) - 1)]]
 except:
     pass
+
+k = df.index.get_loc(today_strf_Ymd)
+df = df.iloc[[*range(0, k)]]
 
 try:
     k = df.index.get_loc(endd)
