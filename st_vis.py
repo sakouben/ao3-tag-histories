@@ -79,27 +79,33 @@ if summarization_type == "Rolling":
     rolling_days = st.number_input('Days to calculate rolling function over', min_value=1)
 else:
     absolute_type = st.radio(
-        "Choose timeframe to calculate absolute function over",
-        ("Weekly", "Monthly")
+        "Choose timeframe and function for absolute display",
+        ("Weekly Average", "Monthly Average", "Weekly Sum", "Monthly Sum")
     )
     
 ## END data summarization type-specific widget
-
-
-dfrm = df[options].rolling(int(rolling_days)).mean()
-dfrm = dfrm.fillna(value=0)
-
-chart_data = dfrm
-chart_data_2 = group_df(df)
-
-
+## BEGIN dataframe processing for final display
 
 if summarization_type == "Rolling":
-    st.line_chart(chart_data)
+    dfrm = df[options].rolling(int(rolling_days)).mean()
+    dfrm = dfrm.fillna(value=0)
+    chart_data = dfrm
 else:
-    st.line_chart(chart_data_2)
+    if absolute_type == "Weekly Average":
+        chart_data = group_df(df, function="mean", time="week")
+    elif absolute_type == "Monthly Average":
+        chart_data = group_df(df, function="mean", time="month")
+    elif absolute_type == "Weekly Sum":
+        chart_data = group_df(df, function="sum", time="week")
+    elif absolute_type == "Monthly Sum":
+        chart_data = group_df(df, function="sum", time="month")
 
+## END dataframe processing for final display
+## BEGIN final chart display
 
+st.line_chart(chart_data)
+
+## END final chart display
 
 
 
