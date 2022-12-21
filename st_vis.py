@@ -19,13 +19,11 @@ options = st.multiselect(
 rolling_avg_days = st.number_input('Days to calculate rolling average', min_value=1)
 
 startdate = st.date_input(
-    "x-axis start date",
-    datetime.date(2019, 7, 6))
+    "x-axis start date")
 startd = pd.Timestamp(startdate).strftime("%Y-%m-%d")
 
 enddate = st.date_input(
-    "x-axis end date",
-    datetime.date(2023, 1, 1))
+    "x-axis end date")
 endd = pd.Timestamp(enddate).strftime("%Y-%m-%d")
 
 try:
