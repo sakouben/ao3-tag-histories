@@ -28,20 +28,20 @@ endd = pd.Timestamp(enddate).strftime("%Y-%m-%d")
 
 try:
     k = df.index.get_loc(startd)
-    df = df.iloc[[k, len(df) - 1]]
+    df = df.iloc[[*range(k, len(df) - 1)]]
 except:
     pass
 
 try:
     k = df.index.get_loc(endd)
-    df = df.iloc[[0, k]]
+    df = df.iloc[[*range(0, k)]]
 except:
     pass
 
 dfrm = df[options].rolling(int(rolling_avg_days)).mean()
 dfrm = dfrm.fillna(value=0)
 
-chart_data = PrimaryDB.read_DB().iloc[[29,1293]]
+chart_data = dfrm
 
 
 st.line_chart(chart_data)
