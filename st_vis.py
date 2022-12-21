@@ -33,6 +33,11 @@ df = PrimaryDB.read_DB()
 
 tags = PrimaryDB.tags()
 
+summarization_type = st.radio(
+    "Choose data summarization type",
+    ('Rolling', 'Absolute'))
+
+
 options = st.multiselect(
     'Pick some tags',
     tags,
@@ -65,12 +70,17 @@ dfrm = df[options].rolling(int(rolling_avg_days)).mean()
 dfrm = dfrm.fillna(value=0)
 
 chart_data = dfrm
-
-
-st.line_chart(chart_data)
-
 chart_data_2 = group_df(df)
 
-st.line_chart(chart_data_2)
+
+
+if summarization_type == "Rolling":
+    st.line_chart(chart_data)
+else:
+    st.line_chart(chart_data_2)
+
+
+
+
 
 
