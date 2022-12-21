@@ -43,24 +43,7 @@ options = st.multiselect(
 )
 
 ## END tag selector widget
-## BEGIN data summarization type widget
-
-summarization_type = st.radio(
-    "Choose data summarization type",
-    ('Rolling', 'Absolute'))
-
-## END data summarization type widget
-## BEGIN data summarization type-specific widget: if rolling, number_input. elif absolute, radiobutton.
-
-if summarization_type == "Rolling":
-    rolling_days = st.number_input('Days to calculate rolling function over', min_value=1)
-else:
-    absolute_type = st.radio(
-        "Choose timeframe to calculate absolute function over",
-        ("Weekly", "Monthly")
-    )
-    
-## END data summarization type-specific widget
+## BEGIN x-axis date delimitation selector widgets
 
 startdate = st.date_input(
     "x-axis start date")
@@ -81,6 +64,27 @@ try:
     df = df.iloc[[*range(0, k)]]
 except:
     pass
+
+## END x-axis date delimitation selector widgets
+## BEGIN data summarization type widget
+
+summarization_type = st.radio(
+    "Choose data summarization type",
+    ('Rolling', 'Absolute'))
+
+## END data summarization type widget
+## BEGIN data summarization type-specific widget: if rolling, number_input. elif absolute, radiobutton.
+
+if summarization_type == "Rolling":
+    rolling_days = st.number_input('Days to calculate rolling function over', min_value=1)
+else:
+    absolute_type = st.radio(
+        "Choose timeframe to calculate absolute function over",
+        ("Weekly", "Monthly")
+    )
+    
+## END data summarization type-specific widget
+
 
 dfrm = df[options].rolling(int(rolling_days)).mean()
 dfrm = dfrm.fillna(value=0)
