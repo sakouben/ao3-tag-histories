@@ -33,16 +33,24 @@ df = PrimaryDB.read_DB()
 
 tags = PrimaryDB.tags()
 
-summarization_type = st.radio(
-    "Choose data summarization type",
-    ('Rolling', 'Absolute'))
-
+## END data initialization
+## BEGIN tag selector widget
 
 options = st.multiselect(
     'Pick some tags',
     tags,
     default="Kazuha/Xiao"
 )
+
+## END tag selector widget
+## BEGIN data summarization type widget
+
+summarization_type = st.radio(
+    "Choose data summarization type",
+    ('Rolling', 'Absolute'))
+
+## END data summarization type widget
+## BEGIN data summarization type-specific widget: if rolling, number_input. elif absolute, radiobutton.
 
 if summarization_type == "Rolling":
     rolling_days = st.number_input('Days to calculate rolling function over', min_value=1)
@@ -51,6 +59,8 @@ else:
         "Choose timeframe to calculate absolute function over",
         ("Weekly", "Monthly")
     )
+    
+## END data summarization type-specific widget
 
 startdate = st.date_input(
     "x-axis start date")
