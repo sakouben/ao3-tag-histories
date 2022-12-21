@@ -91,6 +91,7 @@ if summarization_type == "Rolling":
     dfrm = dfrm.fillna(value=0)
     chart_data = dfrm
 else:
+    df = df[options]
     if absolute_type == "Weekly Average":
         chart_data = group_df(df, function="mean", time="week")
     elif absolute_type == "Monthly Average":
