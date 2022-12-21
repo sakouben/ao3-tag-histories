@@ -46,9 +46,9 @@ options = st.multiselect(
 
 ## END tag selector widget
 ## BEGIN x-axis date delimitation selector widgets
-#k = df.index.get_loc(today_strf_Ymd)
-#df = df.iloc[[*range(0, k)]]
-st.text(df.index[4])
+
+k = df.index.get_loc(today_strf_Ymd)
+df = df.iloc[[*range(0, k)]]
 
 startdate = st.date_input(
     "x-axis start date")
