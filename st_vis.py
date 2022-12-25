@@ -198,7 +198,7 @@ else:
 ## END dataframe processing for final display
 ## BEGIN final chart display
 
-st.subheader('ylabel')
+st.subheader(body=ylabel)
 
 if len(options) > 0:
     st.line_chart(
