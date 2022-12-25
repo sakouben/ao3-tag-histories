@@ -7,6 +7,71 @@ import az1
 
 today_strf_Ymd = pd.Timestamp(datetime.today().strftime('%Y-%m-%d'))
 
+character_list = [
+    "Aether",
+    "Albedo",
+    "Aloy",
+    "Amber",
+    "Arataki Itto",
+    "Barbara",
+    "Beidou",
+    "Bennett",
+    "Candace",
+    "Chongyun",
+    "Collei",
+    "Cyno",
+    "Diluc",
+    "Diona",
+    "Dori",
+    "Eula",
+    "Faruzan",
+    "Fischl",
+    "Ganyu",
+    "Gorou",
+    "Hu Tao",
+    "Jean",
+    "Kaedehara Kazuha",
+    "Kaeya",
+    "Kamisato Ayaka",
+    "Kamisato Ayato",
+    "Keqing",
+    "Klee",
+    "Kujou Sara",
+    "Kuki Shinobu",
+    "Layla",
+    "Lisa",
+    "Mona",
+    "Nahida",
+    "Nilou",
+    "Ningguang",
+    "Noelle",
+    "Qiqi",
+    "Raiden Shogun",
+    "Razor",
+    "Rosaria",
+    "Sangonomiya Kokomi",
+    "Sayu",
+    "Shenhe",
+    "Shikanoin Heizou",
+    "Sucrose",
+    "Tartaglia",
+    "Thoma",
+    "Tighnari",
+    "Lumine
+    "Venti",
+    "Wanderer",
+    "Xiangling",
+    "Xiao",
+    "Xingqiu",
+    "Xinyan",
+    "Yae Miko",
+    "Yanfei",
+    "Yelan",
+    "Yoimiya",
+    "Yun Jin",
+    "Zhongli"
+]
+
 def group_df(df, function="sum", time="month"):
     df['date'] = df.index
     df['month'] = pd.to_datetime(df['date']).dt.month
@@ -30,6 +95,15 @@ def group_df(df, function="sum", time="month"):
     
     return df
 
+def tagswith(character_name, DB_name): #returns set of tags containing character_name
+    tag_subset = set(
+        filter(
+        lambda x: character_name in x, DB_name.tags()
+        )
+    ) 
+    
+    return tag_subset
+
 PrimaryDB = az1.TagDB("tag-histories.csv")
 df = PrimaryDB.read_DB()
 
@@ -38,9 +112,16 @@ tags = PrimaryDB.tags()
 ## END data initialization
 ## BEGIN tag selector widget
 
+single_character_option = st.selectbox(
+    label='Pick a character!',
+    options=character_list
+)
+
+filtered_tags = tagswith(single_character_option, PrimaryDB)
+
 options = st.multiselect(
     'Pick some tags',
-    tags,
+    filtered_tags,
     default="Kazuha/Xiao"
 )
 
