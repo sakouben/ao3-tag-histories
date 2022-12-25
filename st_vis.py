@@ -95,14 +95,14 @@ def group_df(df, function="sum", time="month"):
     
     return df
 
-def tagswith(character_name, DB_name): #returns set of tags containing character_name
-    tag_subset = set(
+def tagswith(character_name, DB_name): #returns list of tags containing character_name
+    tag_sublist = set(
         filter(
         lambda x: character_name in x, DB_name.tags()
         )
     ) 
     
-    return tag_subset
+    return tag_sublist
 
 PrimaryDB = az1.TagDB("tag-histories.csv")
 df = PrimaryDB.read_DB()
