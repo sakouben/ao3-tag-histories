@@ -96,7 +96,7 @@ def group_df(df, function="sum", time="month"):
     return df
 
 def tagswith(character_name, DB_name): #returns list of tags containing character_name
-    tag_sublist = set(
+    tag_sublist = list(
         filter(
         lambda x: character_name in x, DB_name.tags()
         )
