@@ -117,7 +117,9 @@ character_options = st.multiselect(
     options=character_list
 )
 
-filtered_tags = [tagswith(x, PrimaryDB) for x in character_options]
+filtered_tags = []
+for x in character_options:
+    filtered_tags += tagswith(x, PrimaryDB) 
 
 options = st.multiselect(
     'Pick some tags!',
