@@ -204,6 +204,13 @@ else:
 ## END dataframe processing for final display
 ## BEGIN final chart display
 
+BOOL_deltas_display = st.checkbox(label='Display deltas', value=True)
+
+if BOOL_deltas_display == True:
+    chart_data = chart_data.diff()
+else:
+    pass
+
 st.subheader(body=ylabel)
 
 if len(options) > 0:
@@ -213,12 +220,7 @@ if len(options) > 0:
 else:
     st.text('Pick some tags!')
     
-BOOL_deltas_display = st.checkbox(label='Display deltas', value=True)
 
-if BOOL_deltas_display == True:
-    chart_data = chart_data.diff()
-else:
-    pass
 
 ## END final chart display
 
