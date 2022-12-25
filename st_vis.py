@@ -6,71 +6,73 @@ from datetime import datetime
 import az1
 
 today_strf_Ymd = pd.Timestamp(datetime.today().strftime('%Y-%m-%d'))
+character_dict = {
+    "Aether":"Aether",
+    "Albedo":"Albedo",
+    "Aloy":"Aloy",
+    "Amber":"Amber",
+    "Arataki Itto":"Itto",
+    "Barbara":"Barbara",
+    "Beidou":"Beidou",
+    "Bennett":"Bennett",
+    "Candace":"Candace",
+    "Chongyun":"Chongyun",
+    "Collei":"Collei",
+    "Cyno":"Cyno",
+    "Diluc":"Diluc",
+    "Diona":"Diona",
+    "Dori":"Dori",
+    "Eula":"Eula",
+    "Faruzan":"Faruzan",
+    "Fischl":"Fischl",
+    "Ganyu":"Ganyu",
+    "Gorou":"Gorou",
+    "Hu Tao":"Hu Tao",
+    "Jean":"Jean",
+    "Kaedehara Kazuha":"Kazuha",
+    "Kaeya":"Kaeya",
+    "Kamisato Ayaka":"Ayaka",
+    "Kamisato Ayato":"Ayato",
+    "Keqing":"Keqing",
+    "Klee":"Klee",
+    "Kujou Sara":"Sara",
+    "Kuki Shinobu":"Kuki",
+    "Layla":"Layla",
+    "Lisa":"Lisa",
+    "Mona":"Mona",
+    "Nahida":"Nahida",
+    "Nilou":"Nilou",
+    "Ningguang":"Ningguang",
+    "Noelle":"Noelle",
+    "Qiqi":"Qiqi",
+    "Raiden Shogun":"Raiden",
+    "Razor":"Razor",
+    "Rosaria":"Rosaria",
+    "Sangonomiya Kokomi":"Kokomi",
+    "Sayu":"Sayu",
+    "Shenhe":"Shenhe",
+    "Shikanoin Heizou":"Heizou",
+    "Sucrose":"Sucrose",
+    "Tartaglia":"Tartaglia",
+    "Thoma":"Thoma",
+    "Tighnari":"Tighnari",
+    "Lumine":"Lumine",
+    "Venti":"Venti",
+    "Wanderer":"Wanderer",
+    "Xiangling":"Xiangling",
+    "Xiao":"Xiao",
+    "Xingqiu":"Xingqiu",
+    "Xinyan":"Xinyan",
+    "Yae Miko":"Miko",
+    "Yanfei":"Yanfei",
+    "Yelan":"Yelan",
+    "Yoimiya":"Yoimiya",
+    "Yun Jin":"Yun Jin",
+    "Zhongli":"Zhongli"
+}
 
-character_list = [
-    "Aether",
-    "Albedo",
-    "Aloy",
-    "Amber",
-    "Arataki Itto",
-    "Barbara",
-    "Beidou",
-    "Bennett",
-    "Candace",
-    "Chongyun",
-    "Collei",
-    "Cyno",
-    "Diluc",
-    "Diona",
-    "Dori",
-    "Eula",
-    "Faruzan",
-    "Fischl",
-    "Ganyu",
-    "Gorou",
-    "Hu Tao",
-    "Jean",
-    "Kaedehara Kazuha",
-    "Kaeya",
-    "Kamisato Ayaka",
-    "Kamisato Ayato",
-    "Keqing",
-    "Klee",
-    "Kujou Sara",
-    "Kuki Shinobu",
-    "Layla",
-    "Lisa",
-    "Mona",
-    "Nahida",
-    "Nilou",
-    "Ningguang",
-    "Noelle",
-    "Qiqi",
-    "Raiden Shogun",
-    "Razor",
-    "Rosaria",
-    "Sangonomiya Kokomi",
-    "Sayu",
-    "Shenhe",
-    "Shikanoin Heizou",
-    "Sucrose",
-    "Tartaglia",
-    "Thoma",
-    "Tighnari",
-    "Lumine",
-    "Venti",
-    "Wanderer",
-    "Xiangling",
-    "Xiao",
-    "Xingqiu",
-    "Xinyan",
-    "Yae Miko",
-    "Yanfei",
-    "Yelan",
-    "Yoimiya",
-    "Yun Jin",
-    "Zhongli"
-]
+char_displayed_list = list(character_dict.keys())
+char_internal_list = list(character_dict.values())
 
 def group_df(df, function="sum", time="month"):
     df['date'] = df.index
@@ -114,12 +116,12 @@ tags = PrimaryDB.tags()
 
 character_options = st.multiselect(
     label='Pick some characters!',
-    options=character_list
+    options=char_displayed_list
 )
 
 filtered_tags = []
 for x in character_options:
-    filtered_tags += tagswith(x, PrimaryDB) 
+    filtered_tags += tagswith(characterdict[x], PrimaryDB) 
 
 options = st.multiselect(
     'Pick some tags!',
@@ -187,13 +189,17 @@ else:
     df = df[options]
     if absolute_type == "Weekly Average":
         chart_data = group_df(df, function="mean", time="week")
+        ylabel = "Per-day Weekly Average"
     elif absolute_type == "Monthly Average":
         chart_data = group_df(df, function="mean", time="month")
+        ylabel = "Per-day Monthly Average"
     elif absolute_type == "Weekly Sum":
         chart_data = group_df(df, function="sum", time="week")
+        ylabel = absolute_type
     elif absolute_type == "Monthly Sum":
         chart_data = group_df(df, function="sum", time="month")
-    ylabel = absolute_type
+        ylabel = absolute_type
+    
 
 ## END dataframe processing for final display
 ## BEGIN final chart display
