@@ -1,13 +1,13 @@
 # ao3-tag-histories
-detailed day-by-day histories of numbers of works under a specific tag on ao3.
+Detailed day-by-day histories of numbers of works under a specific tag on ao3.
 
 ---
 
 TODO:
 
-reorganization
+Code reorganization
 
-documentation
+Better documentation
 
 ---
 ## Example: Setup
@@ -65,8 +65,8 @@ Due to technical constraints that I do not understand, the script necessary for 
 
 ### The general structure of the database updating process is as follows:
 
-1. the creation of a `TagDB` object by passing the path to the csv database file to the `az0.TagDB` constructor;
-1. the specification of a new `Tag` object to be added, via passing the ao3 url and a "canon identifier" (an arbitrary name that will be used as the column name in the internal DataFrame) to the `az0.Tag` constructor;
-1. the addition of this `Tag` object to the previously constructed `TagDB` object via its `addtag_DB` method, specifying as the sole argument the `Tag` object. It is worth noting that this step is by far the most time consuming, as it may require hundreds of HTTP requests being made, which *must* be spaced out with a minimum of 7s between them. it is a combination of two substeps;
-    1. the substep involving the HTTP requests being made, the data gathered being processed, and the internal DataFrame being updated accordingly;
-    1. the substep that updates the csv *file* originally supplied in the path in the argument for the `az0.TagDB` constructor. This is done automatically, and is not reversible with any method supplied in `TagDB`. It is not possible to halt the process before this occurs by supplying an argument to the `TagDB.add_tag()` method.
+1. Creation of a `TagDB` object by passing the path to the csv database file to the `az0.TagDB` constructor;
+1. Specification of a new `Tag` object to be added, via passing the ao3 url and a "canon identifier" (an arbitrary name that will be used as the column name in the internal DataFrame) to the `az0.Tag` constructor;
+1. Addition of this `Tag` object to the previously constructed `TagDB` object via its `addtag_DB` method, specifying as the sole argument the `Tag` object. It is worth noting that this step is by far the most time consuming, as it may require hundreds of HTTP requests being made, which *must* be spaced out with a minimum of 7s between them. it is a combination of two substeps;
+    1. HTTP requests being made, the data gathered being processed, and the internal DataFrame being updated accordingly;
+    1. Updating the csv *file* originally supplied in the path in the argument for the `az0.TagDB` constructor. This is done automatically, and is not reversible with any method supplied in `TagDB`. It is not possible to halt the process before this occurs by supplying an argument to the `TagDB.add_tag()` method.
