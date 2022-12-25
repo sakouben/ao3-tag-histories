@@ -123,7 +123,7 @@ for x in character_options:
 
 options = st.multiselect(
     'Pick some tags!',
-    filtered_tags
+    set(filtered_tags) #prevents duplicates in dropdown
 )
 
 ## END tag selector widget
