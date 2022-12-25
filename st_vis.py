@@ -206,11 +206,6 @@ else:
 
 st.subheader(body=ylabel)
 
-if BOOL_deltas_display == True:
-    chart_data = chart_data.diff()
-else:
-    pass
-
 if len(options) > 0:
     st.line_chart(
         data=chart_data
@@ -219,6 +214,11 @@ else:
     st.text('Pick some tags!')
     
 BOOL_deltas_display = st.checkbox(label='Display deltas', value=True)
+
+if BOOL_deltas_display == True:
+    chart_data = chart_data.diff()
+else:
+    pass
 
 ## END final chart display
 
