@@ -201,7 +201,7 @@ else:
 if len(options) > 0:
     st.line_chart(
         data=chart_data,
-        x="Time"
+        x="Time",
         y=ylabel
     )
 else:
