@@ -57,7 +57,7 @@ character_list = [
     "Tartaglia",
     "Thoma",
     "Tighnari",
-    "Lumine
+    "Lumine",
     "Venti",
     "Wanderer",
     "Xiangling",
@@ -121,8 +121,7 @@ filtered_tags = tagswith(single_character_option, PrimaryDB)
 
 options = st.multiselect(
     'Pick some tags',
-    filtered_tags,
-    default="Kazuha/Xiao"
+    filtered_tags
 )
 
 ## END tag selector widget
