@@ -206,7 +206,7 @@ else:
 
 st.subheader(body=ylabel)
 
-if BOOL_deltas_display = True:
+if BOOL_deltas_display == True:
     chart_data = chart_data.diff()
 else:
     pass
