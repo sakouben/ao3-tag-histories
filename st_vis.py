@@ -182,6 +182,7 @@ if summarization_type == "Rolling":
     dfrm = df[options].rolling(int(rolling_days)).mean()
     dfrm = dfrm.fillna(value=0)
     chart_data = dfrm
+    ylabel = f"Average fics per day over a {rolling_days}-day window"
 else:
     df = df[options]
     if absolute_type == "Weekly Average":
@@ -192,12 +193,17 @@ else:
         chart_data = group_df(df, function="sum", time="week")
     elif absolute_type == "Monthly Sum":
         chart_data = group_df(df, function="sum", time="month")
+    ylabel = absolute_type
 
 ## END dataframe processing for final display
 ## BEGIN final chart display
 
 if len(options) > 0:
-    st.line_chart(chart_data)
+    st.line_chart(
+        data=chart_data,
+        x="Time"
+        y=ylabel
+    )
 else:
     st.text('Pick some tags!')
 
