@@ -5,8 +5,6 @@ detailed day-by-day histories of works under a specific tag on ao3.
 
 TODO:
 
-data visualization (further options)
-
 documentation
 
 ---
