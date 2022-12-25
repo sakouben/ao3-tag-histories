@@ -63,7 +63,7 @@ PrimaryDB.addtag_DB(tag)
 
 Due to technical constraints that I do not understand, the script necessary for updating the database (`az0`) and the one that exists to support the running of the Streamlit app (`az1`) must be separated, despite the latter being in essence a subset of the former. 
 
-###The general structure of the database updating process is as follows:
+### The general structure of the database updating process is as follows:
 
 1. the creation of a `TagDB` object by passing the path to the csv database file to the `az0.TagDB` constructor;
 1. the specification of a new `Tag` object to be added, via passing the ao3 url and a "canon identifier" (an arbitrary name that will be used as the column name in the internal DataFrame) to the `az0.Tag` constructor;
