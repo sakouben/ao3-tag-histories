@@ -112,15 +112,15 @@ tags = PrimaryDB.tags()
 ## END data initialization
 ## BEGIN tag selector widget
 
-single_character_option = st.selectbox(
-    label='Pick a character!',
+character_options = st.multiselect(
+    label='Pick some characters!',
     options=character_list
 )
 
-filtered_tags = tagswith(single_character_option, PrimaryDB)
+filtered_tags = [tagswith(x, PrimaryDB) for x in character_options]
 
 options = st.multiselect(
-    'Pick some tags',
+    'Pick some tags!',
     filtered_tags
 )
 
