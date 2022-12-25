@@ -198,11 +198,11 @@ else:
 ## END dataframe processing for final display
 ## BEGIN final chart display
 
+st.subheader('ylabel')
+
 if len(options) > 0:
     st.line_chart(
-        data=chart_data,
-        x="Time",
-        y=ylabel
+        data=chart_data
     )
 else:
     st.text('Pick some tags!')
