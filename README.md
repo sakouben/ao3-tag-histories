@@ -3,9 +3,11 @@ Detailed day-by-day histories of numbers of works under a specific tag on ao3.
 
 ---
 
-TODO:
+TODO (in order of importance):
 
-Code reorganization
+More flexible canon tag identification in update.py
+
+Code despaghettification
 
 Better documentation
 
