@@ -4,6 +4,27 @@ import re
 import time
 import az0
 
+def scode(url):
+    return requests.get(url).status_code
+
+def determine_canon(url):
+    if scode(url) == 404:
+        return -1
+
+    response = requests.get(url)
+    content = str(response.content)
+    synloc = content.find("a synonym of")
+
+    if synloc != -1: #case of non-canon tag
+        content = content[synloc:synloc+200]
+        spanpair = re.search('g" href="/t.*?>', str(response.content)[synloc:synloc+200]).span()
+        canon_url_ending = content[spanpair[0]+9:spanpair[1]-2]
+        canon_url = f"https://archiveofourown.org{canon_url_ending}"
+    else: #case of canon tag
+        canon_url = url
+
+    return canon_url
+
 def guess():
     name1 = sys.argv[1]
     name2 = sys.argv[2]
@@ -11,34 +32,26 @@ def guess():
     url_1 = f"https://archiveofourown.org/tags/{name1}*s*{name2}%20(Genshin%20Impact)"
     url_2 = f"https://archiveofourown.org/tags/{name2}*s*{name1}%20(Genshin%20Impact)"
 
-    print("current process: url guessing... (1/2)")
-    if requests.get(url_1) != 404:
-        intermediary_url = url_1
-        print("current process: url successfully determined, proceeding to next step (2/2)")
-    else:
-        print("current process: url1 failed, trying url2... (1/2)")
+    print("current process: determining canon url... (1/2) [108]")
+    canon_url = determine_canon(url_1)
 
-    time.sleep(7)
+    if canon_url == -1:
+        print("url_1 failed. attempting to use url_2... [109]")
+        print("current process: determining canon url... (2/2) [110]")
+        time.sleep(7)
+        canon_url = determine_canon(url_2)
 
-    print("current process: url guessing... (2/2)")
-    if requests.get(url_2) != 404:
-        intermediary_url = url_2
-        print("current process: url successfully determined, proceeding to next step (2/2)")
-    else:
-        print("Exception: url not generated. Proceeding to manual input.")
+    if canon_url == -1:
+        print("canon url determination failed. reverting to manual input... [111]")
         raise Exception(0)
-        
+
     
-    s = requests.get(intermediary_url)
-    content = str(s.content)[10000:]
-    fms = re.search('s\/.*?\/w', content)
-    rstring = str(fms.group()[2:len(fms.group())-2])
-    
-    final_url = f"https://archiveofourown.org/tags/{rstring}/works"
+
+    final_url = f"{canon_url}/works"
     canon_identifier = f"{name1}/{name2}"
     
-    print(f"url: {final_url},\ncanon identifier: {canon_identifier}")
-    print("Warning! Does this set of data look correct? Reply with (y/n) necessary before proceeding.")
+    print(f"url: {final_url}\ncanon identifier: {canon_identifier}  [106]")
+    print("Warning! Does this set of data look correct? Reply with (y/n) necessary before proceeding. [107]")
 
     if input() == "y":
         print("Generated url has been deemed correct. Proceeding to data extraction.")
