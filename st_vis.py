@@ -131,7 +131,7 @@ options = st.multiselect(
 ## END tag selector widget
 ## BEGIN x-axis date delimitation selector widgets
 
-k = df.index.get_loc(pd.Timestamp(datetime.today()).strftime("%Y-%m-%d"))
+k = df.index.get_loc(pd.Timestamp("01-01-2021").strftime("%Y-%m-%d")) #datetime.today() for Timestamp unusable because the table does not stretch that far;
 df = df.iloc[[*range(0, k)]]
 
 startdate = st.date_input(
